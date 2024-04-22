@@ -53,46 +53,46 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
   };
 
 
-  private renderField = (value: any, path: string, themeClass:string="form-control table-cell"): ReactNode => {
-    if (typeof value === 'object' && !Array.isArray(value)) {
+  private renderField = (value: any, path: string, themeClass: string = "form-control table-cell"): ReactNode => {
+    if (typeof value === 'object' && !Array.isArray(value) && value.options) {
+      // Handle dropdowns with options and a selected value
+      return (
+        <td width="20%" className="config-table-td">
+          <select
+            className={themeClass}
+            defaultValue={value.selected}  // Set the currently selected option
+            onChange={(e) => this.handleChange(path + '.selected', e.target.value)}  // Update the selected value on change
+          >
+            {value.options.map((option: string) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </td>
+      );
+    } else if (typeof value === 'object' && !Array.isArray(value)) {
+      // Handle nested objects
       return Object.entries(value).map(([key, val]) => {
         const fullPath = `${path}.${key}`;
-        return this.renderField(val, fullPath, themeClass); // Recursively render deeper levels
+        return this.renderField(val, fullPath, themeClass);
       });
-    } else if (Array.isArray(value)) {
-      return (
-        <td width="20%" className="config-table-td">
-          <span ><select className={themeClass} onChange={(e) => this.handleChange(path, e.target.value)}>
-            {value.map(option => <option key={option} value={option}>{option}</option>)}
-          </select></span>
-        </td>
-      );
-    } else if (typeof value === 'boolean') { // Separate handling for boolean values
-      return (
-        <td width="20%" className="config-table-td">
-          <input
-            // className={themeClass}
-            style={{ margin: '5px' }}
-            type="checkbox"
-            defaultChecked={value}
-            onChange={(e) => this.handleChange(path, e.target.checked)} // Use e.target.checked for checkbox
-          />
-        </td>
-      );
     } else {
+      // Handle other inputs like text and checkbox
       return (
         <td width="20%" className="config-table-td">
           <input
             className={themeClass}
-            type={typeof value === 'number' ? 'number' : 'text'}
-            defaultValue={value}
-            onChange={(e) => this.handleChange(path, typeof value === 'number' ? parseFloat(e.target.value) : e.target.value)}
+            type={typeof value === 'number' ? 'number' : typeof value === 'boolean' ? 'checkbox' : 'text'}
+            defaultValue={typeof value !== 'boolean' ? value : undefined}
+            checked={typeof value === 'boolean' ? value : undefined}
+            onChange={(e) => this.handleChange(path, typeof value === 'number' ? parseFloat(e.target.value) : typeof value === 'boolean' ? e.target.checked : e.target.value)}
           />
         </td>
       );
     }
   };
-
+  
   public render = (): ReactNode => {
     const { config } = this.props.args;
     const { theme } = this.props;

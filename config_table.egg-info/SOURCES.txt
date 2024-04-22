@@ -14,6 +14,6 @@ config_table/frontend/build/bootstrap.min.css
 config_table/frontend/build/index.html
 config_table/frontend/build/static/css/main.42eff879.css
 config_table/frontend/build/static/css/main.42eff879.css.map
-config_table/frontend/build/static/js/main.a46498df.js
-config_table/frontend/build/static/js/main.a46498df.js.LICENSE.txt
-config_table/frontend/build/static/js/main.a46498df.js.map
+config_table/frontend/build/static/js/main.11323184.js
+config_table/frontend/build/static/js/main.11323184.js.LICENSE.txt
+config_table/frontend/build/static/js/main.11323184.js.map
