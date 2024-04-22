@@ -33,5 +33,5 @@ config_data = {
 }
 
 
-return_value1 = config_table.config_table(name="conf1",config=config_data)
+return_value1 = config_table.config_table(name="conf1",config=config_data, btn_name="Update")
 st.write(return_value1)

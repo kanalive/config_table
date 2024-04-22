@@ -12,8 +12,8 @@ config_table.egg-info/top_level.txt
 config_table/frontend/build/asset-manifest.json
 config_table/frontend/build/bootstrap.min.css
 config_table/frontend/build/index.html
-config_table/frontend/build/static/css/main.42eff879.css
-config_table/frontend/build/static/css/main.42eff879.css.map
-config_table/frontend/build/static/js/main.11323184.js
-config_table/frontend/build/static/js/main.11323184.js.LICENSE.txt
-config_table/frontend/build/static/js/main.11323184.js.map
+config_table/frontend/build/static/css/main.af59eb7a.css
+config_table/frontend/build/static/css/main.af59eb7a.css.map
+config_table/frontend/build/static/js/main.278680b3.js
+config_table/frontend/build/static/js/main.278680b3.js.LICENSE.txt
+config_table/frontend/build/static/js/main.278680b3.js.map

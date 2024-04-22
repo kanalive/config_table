@@ -10,6 +10,7 @@ import "./app.css"
 interface Props {
   args: {
     config: any; // Ensure this matches how Streamlit passes down the props.
+    btn_name: "";
   };
   disabled: boolean; // Standard prop to control interactivity.
   width: number;    // Standard prop to control the width of the component.
@@ -19,6 +20,7 @@ interface State {
   config: {
     [key: string]: any; // Allows any property with a string key and any type of value
   };
+  btn_name: "";
 }
 
 class ConfigTable extends StreamlitComponentBase<Props, State> {
@@ -57,7 +59,7 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
     if (typeof value === 'object' && !Array.isArray(value) && value.options) {
       // Handle dropdowns with options and a selected value
       return (
-        <td width="20%" className="config-table-td">
+        <td className="config-table-td">
           <select
             className={themeClass}
             defaultValue={value.selected}  // Set the currently selected option
@@ -80,7 +82,7 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
     } else {
       // Handle other inputs like text and checkbox
       return (
-        <td width="20%" className="config-table-td">
+        <td className="config-table-td">
           <input
             className={themeClass}
             type={typeof value === 'number' ? 'number' : typeof value === 'boolean' ? 'checkbox' : 'text'}
@@ -97,12 +99,12 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
     const { config } = this.props.args;
     const { theme } = this.props;
     const tableCellClass = (theme && theme.base === "dark") ? 'form-control table-cell-dark' : 'form-control table-cell';
-    const btnClass = (theme && theme.base === "dark") ? 'config-table-btn-dark' : 'config-table-btn';
-
+    const btnClass = (theme && theme.base === "dark") ? 'config-table-btn-dark float-right' : 'config-table-btn float-right';
+    const btnName = this.props.args["btn_name"];
 
 
     return (
-      <div className="container">
+      <div >
         {config && Object.entries(config).map(([key, value]) => (
           <div key={key}>
             <h3>{key}</h3>
@@ -111,7 +113,7 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
               <tbody>
                 {Object.entries(value).map(([nestedKey, nestedValue]) => (
                   <tr key={nestedKey}>
-                    <td width="20%" className="config-table-td">{nestedKey}</td>
+                    <td className="config-table-td">{nestedKey}</td>
                     {this.renderField(nestedValue, `${key}.${nestedKey}`, tableCellClass)}
                   </tr>
                 ))}
@@ -119,7 +121,7 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
             </table>
           </div>
         ))}
-        <button className={btnClass} onClick={this.handleSubmit}>Save Config</button>
+        <button className={btnClass} onClick={this.handleSubmit}>{btnName}</button>
       </div>
     );
   }
