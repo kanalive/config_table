@@ -54,8 +54,8 @@ _component_func = components.declare_component("config_table", path=build_dir)
 # `declare_component` and call it done. The wrapper allows us to customize
 # our component's API: we can pre-process its input args, post-process its
 # output value, and add a docstring for users.
-def config_table(name, config, btn_name, key=None):
-    component_value = _component_func(name=name, key=key, config=config, btn_name = btn_name, default=0)
+def config_table(name, config, btn_name, idx_header, key=None):
+    component_value = _component_func(name=name, key=key, config=config, btn_name = btn_name, idx_header = idx_header, default=0)
     # We could modify the value returned from the component if we wanted.
     # There's no need to do this in our simple example - but it's an option.
     return component_value

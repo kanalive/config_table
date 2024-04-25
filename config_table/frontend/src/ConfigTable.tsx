@@ -11,6 +11,7 @@ interface Props {
   args: {
     config: any; // Ensure this matches how Streamlit passes down the props.
     btn_name: "";
+    idx_header: ""
   };
   disabled: boolean; // Standard prop to control interactivity.
   width: number;    // Standard prop to control the width of the component.
@@ -21,6 +22,7 @@ interface State {
     [key: string]: any; // Allows any property with a string key and any type of value
   };
   btn_name: "";
+  idx_header: ""
 }
 
 class ConfigTable extends StreamlitComponentBase<Props, State> {
@@ -101,15 +103,24 @@ class ConfigTable extends StreamlitComponentBase<Props, State> {
     const tableCellClass = (theme && theme.base === "dark") ? 'form-control table-cell-dark' : 'form-control table-cell';
     const btnClass = (theme && theme.base === "dark") ? 'config-table-btn-dark float-right' : 'config-table-btn float-right';
     const btnName = this.props.args["btn_name"];
-
+    const idxHeader = this.props.args["idx_header"];
+    console.log(config)
 
     return (
       <div >
         {config && Object.entries(config).map(([key, value]) => (
           <div key={key}>
-            <h3>{key}</h3>
+            {/* <h3>{key}</h3> */}
             <table>
-              
+              <thead>
+                <tr>
+                  <th>{idxHeader}</th>
+                    {Object.keys(value[Object.keys(value)[0]]).map((header, index) => (
+                      <th key={index}>{header}</th> // Generate <th> for headers in <thead>
+                    ))}
+                </tr>
+                
+              </thead>
               <tbody>
                 {Object.entries(value).map(([nestedKey, nestedValue]) => (
                   <tr key={nestedKey}>

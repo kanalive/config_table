@@ -33,5 +33,5 @@ config_data = {
 }
 
 
-return_value1 = config_table.config_table(name="conf1",config=config_data, btn_name="Update")
+return_value1 = config_table.config_table(name="conf1",config=config_data, btn_name="Update", idx_header="Buckets")
 st.write(return_value1)
